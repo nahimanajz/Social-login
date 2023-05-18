@@ -2,10 +2,7 @@ import express, { Application } from "express";
 import session from 'express-session';
 import authRoutes from './routes/auth-route';
 import path from 'path';
-import googleAuth from './config/passport-setup';
-import passportMicrosoftSetup from './config/passport-microsoft';
-
-
+import authService from './config/passport-setup';
 
 import dotenv from 'dotenv';
 
@@ -48,7 +45,8 @@ app.use(session(sess))
 
 app.use('/auth', authRoutes)
 //google social logins
-googleAuth()
+authService.googleAuth()
+authService.microsoftAuth()
 
 app.get("/ping", async (_req, res) => {
   res.send({
